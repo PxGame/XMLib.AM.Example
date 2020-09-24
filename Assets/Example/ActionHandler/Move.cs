@@ -12,6 +12,7 @@ using XMLib.AM;
 /// SMoveConfig
 /// </summary>
 [ActionConfig(typeof(Move))]
+[System.Serializable]
 public class MoveConfig
 {
     public float moveSpeed;
@@ -52,6 +53,6 @@ public class Move : IActionHandler
             controller.rotation = data.GetRotation();
         }
 
-        controller.velocity = velocity;
+        controller.velocity = new Vector3(velocity.x, controller.velocity.y, velocity.z);
     }
 }

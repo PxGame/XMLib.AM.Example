@@ -34,6 +34,7 @@ public enum CheckType : byte
 /// TSConditionConfig
 /// </summary>
 [ActionConfig(typeof(Condition))]
+[Serializable]
 public class ConditionConfig : HoldFrames
 {
     #region Items
@@ -43,6 +44,7 @@ public class ConditionConfig : HoldFrames
         bool Execute(IActionMachine machine, IActionController controller);
     }
 
+    [Serializable]
     public class GroundChecker : IItem
     {
         public bool isNot;
@@ -54,6 +56,7 @@ public class ConditionConfig : HoldFrames
         }
     }
 
+    [Serializable]
     public class AirChecker : IItem
     {
         public bool isNot;
@@ -65,6 +68,7 @@ public class ConditionConfig : HoldFrames
         }
     }
 
+    [Serializable]
     public class KeyCodeChecker : IItem
     {
         public ActionKeyCode keyCode;
@@ -78,6 +82,7 @@ public class ConditionConfig : HoldFrames
         }
     }
 
+    [Serializable]
     public class VeclocityChecker : IItem
     {
         public float horizontalVelocity;
@@ -119,6 +124,7 @@ public class ConditionConfig : HoldFrames
     public bool allFrameCheck;
 
     [ConditionTypes]
+    [SerializeReference]
     public List<IItem> checker;
 
     public override string ToString()

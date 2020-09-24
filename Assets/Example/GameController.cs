@@ -29,10 +29,13 @@ public class GameController : MonoBehaviour, IInputContainer
 
         InitConfigs();
         InitPlayers();
+
+        InitializeCamera();
     }
 
     private void OnEnable()
     {
+        gameInput = new GameInput();
         gameInput.Enable();
     }
 
@@ -51,6 +54,12 @@ public class GameController : MonoBehaviour, IInputContainer
             timer -= perFrameTime;
             LogicUpdate(perFrameTime);
         }
+    }
+
+    private void LateUpdate()
+    {
+        UpdateFollowPos();
+        UpdateTransform();
     }
 
     private void LogicUpdate(float deltaTime)
@@ -88,7 +97,95 @@ public class GameController : MonoBehaviour, IInputContainer
         return configDict.TryGetValue(configName, out var config) ? config : null;
     }
 
-    #region  IInputContainer
+
+    #region Camera
+
+    [Serializable]
+    public class CameraSetting
+    {
+        //x = distance y = height z = xAngle
+
+        public Vector3 minView = new Vector3(4, 2, 0);
+        public Vector3 maxView = new Vector3(7, 4, 8);
+
+        public Vector3 GetView(float v)
+        {
+            return Vector3.Lerp(minView, maxView, v);
+        }
+    }
+
+    public CameraSetting cameraSetting;
+
+    public new Camera camera { get; private set; }
+    public Transform root { get; private set; }
+
+    public Transform followObj { get; private set; }
+    public Vector3 followPos { get; private set; }
+
+    protected float yAngle => LookAtYAngle;
+    protected float heightScale => LookAtHeightScale;
+    protected float currentYAngle = 0f;
+
+    protected float currentHeightScale = 0f;
+    public void SetFollow(Transform obj)
+    {
+        followObj = obj;
+        followPos = followObj.position;
+
+        currentYAngle = yAngle;
+        currentHeightScale = heightScale;
+        UpdateTransform(followPos, currentYAngle, currentHeightScale);
+    }
+
+    public void InitializeCamera()
+    {
+        camera = Camera.main;
+
+        GameObject rootObj = new GameObject("CameraRoot");
+        root = rootObj.transform;
+        camera.transform.parent = root;
+
+        camera.transform.localScale = Vector3.one;
+        camera.transform.localRotation = Quaternion.identity;
+        camera.transform.localPosition = Vector3.zero;
+
+        SetFollow(players.Find(t => t.ID == inputTargetId).transform);
+    }
+
+    private void UpdateTransform(Vector3 center, float yAngle, float viewValue)
+    {
+        Vector3 view = cameraSetting.GetView(viewValue);
+        Vector3 dir = (Quaternion.AngleAxis(yAngle, Vector3.up) * Vector3.forward).normalized;
+        Vector3 offset = dir * -view.x + Vector3.up * view.y;
+        Vector3 targetPosition = center + offset;
+
+        Quaternion targetRotation = Quaternion.Euler(view.z, yAngle, 0);
+
+        root.position = targetPosition;
+        root.rotation = targetRotation;
+
+        DrawUtility.D.DrawLine(center, center + dir * 3f, Color.magenta);
+    }
+
+    private void UpdateTransform()
+    {
+        currentYAngle = Mathf.LerpAngle(currentYAngle, yAngle, Time.deltaTime * 7f);
+        currentHeightScale = Mathf.LerpAngle(currentHeightScale, heightScale, Time.deltaTime * 16f);
+        UpdateTransform(followPos, currentYAngle, currentHeightScale);
+    }
+
+    private void UpdateFollowPos()
+    {
+        if (followObj == null)
+        {
+            return;
+        }
+        followPos = followObj.position;
+    }
+
+    #endregion
+
+    #region  Input
 
     private GameInput gameInput = null;
     private Dictionary<int, InputData> id2Input = new Dictionary<int, InputData>();
@@ -145,16 +242,6 @@ public class GameController : MonoBehaviour, IInputContainer
             keyCode |= ActionKeyCode.Axis;
         }
 
-        if (playerInput.Jump.triggered)
-        {
-            keyCode |= ActionKeyCode.Jump;
-        }
-
-        if (playerInput.Jump.phase == InputActionPhase.Started)
-        {
-            keyCode |= ActionKeyCode.Jumping;
-        }
-
         if (playerInput.Attack.triggered)
         {
             keyCode |= ActionKeyCode.Attack;
@@ -174,12 +261,6 @@ public class GameController : MonoBehaviour, IInputContainer
         {
             keyCode |= ActionKeyCode.Dash;
         }
-
-        if (playerInput.Block.phase == InputActionPhase.Started)
-        {
-            keyCode |= ActionKeyCode.Blocking;
-        }
-
         result.SetKeyCode(keyCode);
         result.SetAxisFromDir(move);
 
@@ -211,9 +292,7 @@ public class GameController : MonoBehaviour, IInputContainer
 
     public void SetAxisFromDir(int id, bool axisState, Vector3 dir)
     {
-        dir.y = 0f;
-        float angle = Vector3.SignedAngle(Vector3.forward, dir, Vector3.up);
-        byte axisValue = MathUtility.AngleToByte(angle);
+        byte axisValue = MathUtility.ByteAngleYFromDir(dir);
         SetAxis(id, axisState, axisValue);
     }
 
@@ -289,6 +368,7 @@ public class GameController : MonoBehaviour, IInputContainer
             return ((int)data.keyCode & keyCode) != 0;
         }
     }
+
 
     #endregion
 }
