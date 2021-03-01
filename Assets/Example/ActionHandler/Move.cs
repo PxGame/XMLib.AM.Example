@@ -1,58 +1,40 @@
-/*
- * 作者：Peter Xiang
- * 联系方式：565067150@qq.com
- * 文档: https://github.com/xiangmu110/XMLib/wiki
- * 创建时间: 2019/11/24 0:02:52
- */
-
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using XMLib.AM;
 
-/// <summary>
-/// SMoveConfig
-/// </summary>
-[ActionConfig(typeof(Move))]
 [System.Serializable]
+[ActionConfig(typeof(Move))]
 public class MoveConfig
 {
     public float moveSpeed;
 }
 
-/// <summary>
-/// SMove
-/// </summary>
 public class Move : IActionHandler
 {
     public void Enter(ActionNode node)
     {
-        MoveConfig config = (MoveConfig)node.config;
-        IActionMachine machine = node.actionMachine;
-        //IActionController controller = (IActionController)node.actionMachine.controller;
     }
 
     public void Exit(ActionNode node)
     {
-        MoveConfig config = (MoveConfig)node.config;
-        IActionMachine machine = node.actionMachine;
-        //IActionController controller = (IActionController)node.actionMachine.controller;
     }
 
     public void Update(ActionNode node, float deltaTime)
     {
         MoveConfig config = (MoveConfig)node.config;
         IActionMachine machine = node.actionMachine;
-        IActionController controller = (IActionController)node.actionMachine.controller;
+        ActionMachineController controller = (ActionMachineController)node.actionMachine.controller;
 
-        Vector3 velocity = controller.velocity;
-
-        if (machine.input.HasKey(controller.ID, (int)ActionKeyCode.Axis))
+        if (InputData.HasEvent(InputEvents.Moving))
         {
-            InputData data = machine.input.GetRawInput(controller.ID);
+            var velocity = controller.rigid.velocity;
+            var move = InputData.axisValue.normalized * config.moveSpeed;
 
-            velocity = data.GetDir() * config.moveSpeed;
-            controller.rotation = data.GetRotation();
+            velocity.x = move.x;
+            velocity.z = move.y;
+
+            controller.rigid.velocity = velocity;
         }
-
-        controller.velocity = new Vector3(velocity.x, controller.velocity.y, velocity.z);
     }
 }

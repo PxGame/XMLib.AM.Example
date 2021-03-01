@@ -1,0 +1,14 @@
+{
+    "name": "com.peterxiang.xmlib.thirdparty",
+    "version": "1.0.0",
+    "displayName": "XMLib Thirdparty",
+    "description": "XMLib 第三方库",
+    "unity": "2019.1",
+    "dependencies": {},
+    "keywords": [],
+    "author": {
+        "name": "Peter Xiang",
+        "email": "565067150@qq.com",
+        "url": "https://github.com/PxGame"
+    }
+}

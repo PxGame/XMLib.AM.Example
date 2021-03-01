@@ -1,37 +1,5 @@
 {
   "dependencies": {
-    "com.peterxiang.xmlib.am": {
-      "version": "https://github.com/PxGame/XMLib.AM.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.peterxiang.xmlib.common": "1.0.1"
-      },
-      "hash": "6e7846a1b007449f92e79737fb175060d5087412"
-    },
-    "com.peterxiang.xmlib.common": {
-      "version": "https://github.com/PxGame/XMLib.Common.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.peterxiang.xmlib.thirdparty": "1.0.0"
-      },
-      "hash": "51468258cfebf7dc02ae610ee0cf369ff4da7dea"
-    },
-    "com.peterxiang.xmlib.thirdparty": {
-      "version": "https://github.com/PxGame/XMLib.ThirdParty.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "7fa1b26f3208e481246b712db3d815adf3e9d546"
-    },
-    "com.unity.collab-proxy": {
-      "version": "1.3.8",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.ext.nunit": {
       "version": "1.0.0",
       "depth": 1,
@@ -80,15 +48,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "com.unity.textmeshpro": {
-      "version": "3.0.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0"
-      },
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.timeline": {
       "version": "1.3.4",
       "depth": 0,
@@ -101,8 +60,7 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0"
+        "com.unity.modules.ui": "1.0.0"
       }
     },
     "com.unity.modules.ai": {
@@ -238,18 +196,6 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.uielementsnative": "1.0.0"
-      }
-    },
-    "com.unity.modules.uielementsnative": {
-      "version": "1.0.0",
-      "depth": 1,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       }

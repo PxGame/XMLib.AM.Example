@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3850842395388015405}
   - component: {fileID: 3850842395388015406}
   - component: {fileID: 3850842395388015407}
-  - component: {fileID: 3850842395388015394}
+  - component: {fileID: 4446724629325750061}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -57,14 +57,14 @@ Rigidbody:
   m_GameObject: {fileID: 3850842395388015400}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &3850842395388015394
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 1
+--- !u!114 &4446724629325750061
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,14 +73,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3850842395388015400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c195a7ea871f3469c3dda6f2195bbd, type: 3}
+  m_Script: {fileID: 11500000, guid: 54e958ee834bab042b67ffc51363bffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
-  configName: PlayerConfig
+  configName: MachineConfig
   animator: {fileID: 3850842396779247261}
-  rigidbody: {fileID: 3850842395388015407}
+  _rigid: {fileID: 3850842395388015407}
   modelRoot: {fileID: 3850842397141136917}
+  rotationSpeed: 10
 --- !u!1 &3850842397141136918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,11 +2279,13 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: b89e0c3c675d2f6468bb44ecbf17fb04, type: 3}
 --- !u!4 &3850842396788903667 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 456436, guid: b89e0c3c675d2f6468bb44ecbf17fb04, type: 3}
+  m_CorrespondingSourceObject: {fileID: 456436, guid: b89e0c3c675d2f6468bb44ecbf17fb04,
+    type: 3}
   m_PrefabInstance: {fileID: 3850842396788733959}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &3850842396779247261 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 9522842, guid: b89e0c3c675d2f6468bb44ecbf17fb04, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9522842, guid: b89e0c3c675d2f6468bb44ecbf17fb04,
+    type: 3}
   m_PrefabInstance: {fileID: 3850842396788733959}
   m_PrefabAsset: {fileID: 0}
