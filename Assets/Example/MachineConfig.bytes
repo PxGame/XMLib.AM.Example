@@ -7,7 +7,7 @@
         "idle"
       ],
       "dafualtAnimIndex": 0,
-      "fadeTime": 0.05,
+      "fadeTime": 0.1,
       "enableLoop": true,
       "nextStateName": "",
       "nextAnimIndex": -1,
@@ -57,6 +57,27 @@
               "events": 1,
               "isNot": false,
               "fullMatch": false
+            }
+          ],
+          "enableBeginEnd": false,
+          "beginFrame": 0,
+          "endFrame": 0,
+          "enableLoop": true
+        },
+        {
+          "$type": "ConditionConfig, Assembly-CSharp",
+          "stateName": "jump",
+          "priority": 0,
+          "checker": [
+            {
+              "$type": "Conditions.KeyCodeChecker, Assembly-CSharp",
+              "events": 4,
+              "isNot": false,
+              "fullMatch": false
+            },
+            {
+              "$type": "Conditions.GroundChecker, Assembly-CSharp",
+              "isNot": false
             }
           ],
           "enableBeginEnd": false,
@@ -144,6 +165,27 @@
               "events": 1,
               "isNot": true,
               "fullMatch": false
+            }
+          ],
+          "enableBeginEnd": false,
+          "beginFrame": 0,
+          "endFrame": 0,
+          "enableLoop": true
+        },
+        {
+          "$type": "ConditionConfig, Assembly-CSharp",
+          "stateName": "jump",
+          "priority": 0,
+          "checker": [
+            {
+              "$type": "Conditions.KeyCodeChecker, Assembly-CSharp",
+              "events": 4,
+              "isNot": false,
+              "fullMatch": false
+            },
+            {
+              "$type": "Conditions.GroundChecker, Assembly-CSharp",
+              "isNot": false
             }
           ],
           "enableBeginEnd": false,
@@ -876,6 +918,80 @@
         }
       ],
       "defaultAnimaName": "attack_03"
+    },
+    {
+      "stateName": "jump",
+      "animNames": [
+        "jump"
+      ],
+      "dafualtAnimIndex": 0,
+      "fadeTime": 0.05,
+      "enableLoop": true,
+      "nextStateName": "",
+      "nextAnimIndex": -1,
+      "frames": [
+        {
+          "stayAttackRange": false,
+          "stayBodyRange": false,
+          "attackRanges": [],
+          "bodyRanges": []
+        }
+      ],
+      "actions": [
+        {
+          "$type": "JumpConfig, Assembly-CSharp",
+          "nextState": "land",
+          "minHeight": 2.0,
+          "maxHeight": 5.0,
+          "moveSpeed": 3.0
+        }
+      ],
+      "defaultAnimaName": "jump"
+    },
+    {
+      "stateName": "land",
+      "animNames": [
+        "land"
+      ],
+      "dafualtAnimIndex": 0,
+      "fadeTime": 0.0,
+      "enableLoop": false,
+      "nextStateName": "idle",
+      "nextAnimIndex": -1,
+      "frames": [
+        {
+          "stayAttackRange": false,
+          "stayBodyRange": false,
+          "attackRanges": [],
+          "bodyRanges": []
+        },
+        {
+          "stayAttackRange": false,
+          "stayBodyRange": false,
+          "attackRanges": [],
+          "bodyRanges": []
+        },
+        {
+          "stayAttackRange": false,
+          "stayBodyRange": false,
+          "attackRanges": [],
+          "bodyRanges": []
+        },
+        {
+          "stayAttackRange": false,
+          "stayBodyRange": false,
+          "attackRanges": [],
+          "bodyRanges": []
+        },
+        {
+          "stayAttackRange": false,
+          "stayBodyRange": false,
+          "attackRanges": [],
+          "bodyRanges": []
+        }
+      ],
+      "actions": [],
+      "defaultAnimaName": "land"
     }
   ],
   "globalActions": []

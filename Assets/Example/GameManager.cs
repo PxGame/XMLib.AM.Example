@@ -8,9 +8,11 @@ using XMLib.AM;
 
 public enum InputEvents
 {
-    None,
-    Moving,
-    Attack
+    None = 0b0000,
+    Moving = 0b0001,
+    Attack = 0b0010,
+    Jump = 0b0100,
+    Jumping = 0b1000,
 }
 
 public static class InputData
@@ -87,6 +89,16 @@ public class GameManager : MonoBehaviour
         if (player.Attack.triggered)
         {
             InputData.inputEvents |= InputEvents.Attack;
+        }
+
+        if (player.Jump.triggered)
+        {
+            InputData.inputEvents |= InputEvents.Jump;
+        }
+
+        if (player.Jump.phase == InputActionPhase.Started)
+        {
+            InputData.inputEvents |= InputEvents.Jumping;
         }
     }
 

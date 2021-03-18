@@ -90,4 +90,17 @@ namespace Conditions
             return isNot ? !result : result;
         }
     }
+
+    [Serializable]
+    public class GroundChecker : IItem
+    {
+        public bool isNot;
+
+        public bool Execute(ActionNode node)
+        {
+            IActionMachine machine = node.actionMachine;
+            ActionMachineController controller = (ActionMachineController)node.actionMachine.controller;
+            return isNot ? !controller.isGround : controller.isGround;
+        }
+    }
 }

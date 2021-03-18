@@ -23,6 +23,12 @@ public class ActionMachineController : MonoBehaviour
     [SerializeField]
     private float rotationSpeed = 1;
 
+    [SerializeField]
+    private LayerMask goundMask;
+
+    [SerializeField]
+    public bool _isGround = true;
+
     private IActionMachine actionMachine;
     private float animatorTimer;
 
@@ -30,6 +36,7 @@ public class ActionMachineController : MonoBehaviour
 
     private Quaternion _modelRotation;
     public Quaternion modelRotation => _modelRotation;
+    public bool isGround => _isGround && Mathf.Approximately(_rigid.velocity.y, 0);
 
     private void Start()
     {
@@ -68,6 +75,14 @@ public class ActionMachineController : MonoBehaviour
 
         //更新动画
         UpdateLogicAnimation(deltaTime);
+
+        CheckGround();
+    }
+
+    private void CheckGround()
+    {
+        float length = 0.02f;
+        _isGround = rigid.velocity.y > 0 ? false : Physics.Raycast(transform.position + length * Vector3.up, Vector3.down, length * 2, goundMask);
     }
 
     private void InitAnimation()
